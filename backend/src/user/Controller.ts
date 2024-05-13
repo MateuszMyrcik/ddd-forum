@@ -1,6 +1,4 @@
 import express from "express";
-import { Kysely } from "kysely";
-import { Database } from "../types/db";
 import { UserModel } from "./Model";
 import { generate } from "generate-password";
 

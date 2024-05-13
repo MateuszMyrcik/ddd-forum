@@ -1,36 +1,22 @@
 import { UserController } from "./user/Controller";
 import express from "express";
-import { Kysely, PostgresDialect } from "kysely";
-import { Pool } from "pg";
-import { Database } from "./types/db";
 import { UserModel } from "./user/Model";
 import "dotenv/config";
 
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 const app = express();
 const port = 3000;
-const { DB_USER, DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT } = process.env;
 
-const bootstrap = async () => {
-  const dialect = new PostgresDialect({
-    pool: new Pool({
-      user: DB_USER,
-      host: DB_HOST,
-      database: DB_DATABASE,
-      password: DB_PASSWORD,
-      port: Number(DB_PORT),
-    }),
-  });
-  const db = new Kysely<Database>({
-    dialect,
-  });
-  const userModel = new UserModel(db);
+const main = async () => {
+  const userModel = new UserModel(prisma);
   const userController = new UserController(userModel);
 
-  app.use(express.json());
-
-  app.get("/", async (_, res) => {
-    res.send("DDD Forum api is alive!");
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
   });
+  app.use(express.json());
 
   app.post("/users/new", async (req, res) => {
     userController.createUser(req, res);
@@ -43,10 +29,14 @@ const bootstrap = async () => {
   app.get("/users", async (req, res) => {
     userController.getByUserEmail(req, res);
   });
-
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-  });
 };
 
-bootstrap();
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

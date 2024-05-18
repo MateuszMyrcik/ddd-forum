@@ -20,10 +20,10 @@ export class UserController {
   }
 
   async createUser(req: express.Request, res: express.Response) {
-    const { username, email, first_name, last_name } = req.body;
+    const { username, email, firstName, lastName } = req.body;
 
     try {
-      if (!username || !email || !first_name || !last_name) {
+      if (!username || !email || !firstName || !lastName) {
         res.status(400).json({
           error: Errors.ValidationError,
           data: undefined,
@@ -33,7 +33,6 @@ export class UserController {
       }
 
       const existingUsername = await this.userModel.findByUsername(username);
-
       if (existingUsername) {
         res.status(409).json({
           error: Errors.UsernameAlreadyTaken,
@@ -73,7 +72,7 @@ export class UserController {
   }
 
   async editUser(req: express.Request, res: express.Response) {
-    const { email, username, first_name, last_name } = req.body;
+    const { email, username, firstName, lastName } = req.body;
     const { userId } = req.params;
     const numericUserId = Number(userId);
 
@@ -82,7 +81,7 @@ export class UserController {
         throw Error("Not numeric userId");
       }
 
-      if (!username || !email || !first_name || !last_name) {
+      if (![username, email, firstName, lastName].filter(Boolean).length) {
         res.status(400).json({
           error: Errors.ValidationError,
           data: undefined,
@@ -102,26 +101,30 @@ export class UserController {
         return;
       }
 
-      const existingUsername = await this.userModel.findByUsername(username);
+      if (username) {
+        const existingUsername = await this.userModel.findByUsername(username);
 
-      if (existingUsername) {
-        res.status(409).json({
-          error: Errors.UsernameAlreadyTaken,
-          data: undefined,
-          success: false,
-        });
-        return;
+        if (existingUsername) {
+          res.status(409).json({
+            error: Errors.UsernameAlreadyTaken,
+            data: undefined,
+            success: false,
+          });
+          return;
+        }
       }
 
-      const existingEmail = await this.userModel.findByEmail(email);
+      if (email) {
+        const existingEmail = await this.userModel.findByEmail(email);
 
-      if (existingEmail) {
-        res.status(409).json({
-          error: Errors.EmailAlreadyInUse,
-          data: undefined,
-          success: false,
-        });
-        return;
+        if (existingEmail) {
+          res.status(409).json({
+            error: Errors.EmailAlreadyInUse,
+            data: undefined,
+            success: false,
+          });
+          return;
+        }
       }
 
       const user = await this.userModel.editUser({

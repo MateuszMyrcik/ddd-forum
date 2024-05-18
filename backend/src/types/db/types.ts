@@ -5,13 +5,13 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export type User = {
-    id: Generated<number>;
-    email: string;
-    username: string;
-    first_name: string;
-    last_name: string;
-    password: string;
+  id: number;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 };
 export type DB = {
-    User: User;
+  User: User;
 };

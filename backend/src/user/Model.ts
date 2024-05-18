@@ -21,17 +21,17 @@ export class UserModel {
   }
 
   async insertUser(user: Omit<User, "id">) {
-    const { first_name, email, password, last_name, username } = user;
+    const { firstName, email, password, lastName, username } = user;
     return this.db.user.create({
-      data: { email, first_name, last_name, password, username },
+      data: { email, firstName, lastName, password, username },
     });
   }
 
   async editUser(user: Omit<User, "password" | "id"> & { id: number }) {
-    const { email, first_name, last_name, username } = user;
+    const { email, firstName, lastName, username } = user;
     return this.db.user.update({
       where: { id: user.id },
-      data: { email, first_name, last_name, username },
+      data: { email, firstName, lastName, username },
     });
   }
 }

@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
   color-scheme: none !important;
@@ -5,24 +8,41 @@ html {
 }
 
 body {
-  margin: 0;
-  display: flex; 
-  place-items: center;
-  min-width: 100vw;
-  min-height: 100vh;
+  background: #f9f9f9;
+    border-radius: .25rem;
+    margin: 1.5rem;
+    font-family: Roboto Mono, monospace;
+    height: 100%;
 }
 
-#root {
-  width: 100vw;
-  margin: 1rem;
-  padding: 2rem;
-  background: #f1f1f1;
-  height: 100vh;
-  border-radius: 0.2rem;
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 16px
+}
+
+
+button {
+  cursor: pointer;
+}
+
+
+/* 
+.app-layout {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 #app-logo img {
-  max-width: 4rem;
+  max-width: 4.375rem;
 }
 
 .content-container {
@@ -31,15 +51,7 @@ body {
   flex-direction: column;
 }
 
-.post-item-downvote > img {
-  transform: rotate(180deg);
-}
 
-.post-item-details > div, .post-item-details > a {
-  margin-right: 0.5rem;
-  border-right: solid 1px black;
-  padding-right: 0.5rem;
-}
 
 .posts-view-switcher {
   margin-bottom: 1.5rem;
@@ -60,89 +72,6 @@ body {
 .posts-view-switcher > div.active {
   cursor: pointer;
   color: initial;
-}
-
-.post-item-details > div:last-of-type {
-  border-right: none;
-}
-
-.post-item-details a {
-  line-height: initial;
-}
-
-.flex {
-  display: flex;
-}
-
-.align-center {
-  align-items: center;
-  justify-content: center;
-}
-
-#title-container {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-#title-container h1, h3 {
-  margin: 0;
-}
-
-.posts-list {
-  display: flex;
-    flex-direction: column;
-}
-
-.post-item {
-  display: flex;
-  flex-direction: row;
-}
-
-.post-item-votes {
-  margin-right: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.post-item-title {
-  font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.post-item-details {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
 }
 
 .card {
@@ -186,4 +115,4 @@ body {
   transition: all .2s;
   font-size: 1rem;
   box-sizing: border-box;
-}
+} */

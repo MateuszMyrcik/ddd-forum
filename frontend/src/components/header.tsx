@@ -29,7 +29,7 @@ const HeaderActionButton = ({ user }: HeaderActionButtonProps) => (
     ) : (
       <Link
         to="/join"
-        className="text-white bg-black min-w-[80px] text-right p-2 pl-8 ">
+        className="text-white bg-black min-w-[80px] text-right p-2 pl-14">
         Join
       </Link>
     )}
@@ -37,7 +37,6 @@ const HeaderActionButton = ({ user }: HeaderActionButtonProps) => (
 );
 
 export const Header = ({ pathName, user, className }: HeaderProps) => {
-  const classes = clsx(className, "flex items-center justify-evenly");
   const logo = (
     <div className="p-6">
       <img className="h-[70px]" src={logoDDD} alt="brick logo" />
@@ -59,7 +58,7 @@ export const Header = ({ pathName, user, className }: HeaderProps) => {
   );
 
   return (
-    <header className={classes}>
+    <header className={clsx(className, "flex items-center gap-8")}>
       {logo}
       {titleAndSubmission}
       {shouldShowActionButton(pathName) ? (

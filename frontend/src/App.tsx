@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/mainPage";
+import { RegisterPage } from "./pages/register";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <div className="min-h-screen min-w-vh rounded">
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/join" element={<div>Register</div>} />
+          <Route path="/join" element={<RegisterPage />} />
         </Routes>
       </div>
     </BrowserRouter>

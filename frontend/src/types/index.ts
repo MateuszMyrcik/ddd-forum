@@ -10,7 +10,10 @@ export type Comment = {
 };
 
 export type User = {
+  email: string;
   username: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type Post = {

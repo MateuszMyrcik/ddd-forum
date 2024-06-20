@@ -10,11 +10,11 @@ type HeaderProps = {
 } & HeaderActionButtonProps;
 
 type HeaderActionButtonProps = {
-  user?: User;
+  user: User | null;
 };
 
 const shouldShowActionButton = (pathName: string) => {
-  return pathName !== "/join";
+  return pathName !== "/register";
 };
 
 const HeaderActionButton = ({ user }: HeaderActionButtonProps) => (
@@ -28,7 +28,7 @@ const HeaderActionButton = ({ user }: HeaderActionButtonProps) => (
       </div>
     ) : (
       <Link
-        to="/join"
+        to="/register"
         className="text-white bg-black min-w-[80px] text-right p-2 pl-14">
         Join
       </Link>

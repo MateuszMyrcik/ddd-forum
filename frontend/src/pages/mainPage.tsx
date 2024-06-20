@@ -5,6 +5,7 @@ import { PostsViewSwitcher } from "../components/postsViewSwitcher";
 import { mockPosts } from "../mocks";
 import { Post, SortPostsBy } from "../types";
 import { compareDesc } from "date-fns";
+import { api } from "../api";
 
 const sortByPopular = (posts: Post[]) => {
   return posts.sort(
@@ -17,8 +18,8 @@ const sortByNewest = (posts: Post[]) => {
 };
 
 export const MainPage = () => {
-  const [sortPostsBy, setSetSortPostsBy] = useState<SortPostsBy | null>(null);
-  const [posts, setPosts] = useState<Post[]>(mockPosts);
+  const [sortPostsBy, setSetSortPostsBy] = useState<SortPostsBy | null>("NEW");
+  const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     if (sortPostsBy === "NEW") {
@@ -29,6 +30,16 @@ export const MainPage = () => {
       setPosts([...sortedPosts]);
     }
   }, [sortPostsBy]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const postsResponse = await api.posts.getPosts();
+
+      setPosts(postsResponse.data.data.posts);
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <Layout>

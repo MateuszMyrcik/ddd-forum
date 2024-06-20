@@ -3,9 +3,7 @@ import { Button } from "./button";
 import { useState } from "react";
 import { User } from "../types";
 
-export type RegisterFormPayload = {
-  password: string;
-} & User;
+export type RegisterFormPayload = User;
 
 type Props = {
   onSubmit: (formPayload: RegisterFormPayload) => void;
@@ -14,7 +12,6 @@ type Props = {
 export const RegisterForm = ({ onSubmit }: Props) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -41,11 +38,6 @@ export const RegisterForm = ({ onSubmit }: Props) => {
           className="py-2 px-4 rounded border-[3px] border-black border-solid text-sm"
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input
-          placeholder="password"
-          className="py-2 px-4 rounded border-[3px] border-black border-solid text-sm"
-          onChange={(e) => setPassword(e.target.value)}
-        />
       </div>
       <div className="flex justify-end gap-2">
         <div>
@@ -62,7 +54,6 @@ export const RegisterForm = ({ onSubmit }: Props) => {
                 firstName,
                 lastName,
                 username,
-                password,
               };
 
               onSubmit(payload);

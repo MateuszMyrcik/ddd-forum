@@ -12,7 +12,7 @@ type ValidationResult = {
   errorMessage?: string;
 };
 
-// TODO: move to zod
+
 const validateForm = (input: RegisterFormPayload): ValidationResult => {
   if (input.email.indexOf("@") === -1)
     return { success: false, errorMessage: "Email invalid" };
@@ -22,8 +22,6 @@ const validateForm = (input: RegisterFormPayload): ValidationResult => {
     return { success: false, errorMessage: "First name invalid" };
   if (input.lastName.length < 2)
     return { success: false, errorMessage: "Last name invalid" };
-  if (input.password.length < 2)
-    return { success: false, errorMessage: "Password invalid" };
   return { success: true };
 };
 
@@ -42,7 +40,7 @@ export const RegisterPage = () => {
     spinner.activate();
 
     try {
-      // const response = await api.register(payload);
+      debugger;
       const response = await api.register(payload);
 
       setUser(response.data);

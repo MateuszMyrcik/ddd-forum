@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Layout } from "../components/layout";
 import { PostsList, computeVoteCount } from "../components/postsList";
 import { PostsViewSwitcher } from "../components/postsViewSwitcher";
-import { mockPosts } from "../mocks";
 import { Post, SortPostsBy } from "../types";
 import { compareDesc } from "date-fns";
 import { api } from "../api";

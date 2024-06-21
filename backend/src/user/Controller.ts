@@ -2,15 +2,7 @@ import express from "express";
 import { UserModel } from "./Model";
 import { generate } from "generate-password";
 import { User } from "../types/db/types";
-
-const Errors = {
-  UsernameAlreadyTaken: "UserNameAlreadyTaken",
-  EmailAlreadyInUse: "EmailAlreadyInUse",
-  ValidationError: "ValidationError",
-  ServerError: "ServerError",
-  ClientError: "ClientError",
-  UserNotFound: "UserNotFound",
-};
+import { Errors } from "../constants";
 
 export class UserController {
   private userModel: UserModel;
@@ -30,6 +22,14 @@ export class UserController {
           success: false,
         });
         return;
+      }
+
+      if (!this.isValidEmail(email)) {
+        return res.status(400).json({
+          error: Errors.InvalidUserInput,
+          data: undefined,
+          success: false,
+        });
       }
 
       const existingUsername = await this.userModel.findByUsername(username);
@@ -169,6 +169,7 @@ export class UserController {
         success: true,
       });
     } catch (err) {
+      console.log(err);
       res
         .status(500)
         .json({ error: "ServerError", data: undefined, success: false });
@@ -179,5 +180,10 @@ export class UserController {
     const returnData = JSON.parse(JSON.stringify(user));
     delete returnData.password;
     return returnData;
+  }
+
+  private isValidEmail(email: string) {
+    const validEmailRegex = /^\S+@\S+\.\S+$/;
+    return validEmailRegex.test(email);
   }
 }
